@@ -1,0 +1,231 @@
+% \iffalse meta-comment
+%
+% todo - package for to-do lists.
+% Copyright 2002 Federico Garcia (feg8@pitt.edu, fedegarcia@hotmail.com)
+% -------------------------------------------
+% 
+%
+% This program can be redistributed and/or modified under the terms
+% of the LaTeX Project Public License distributed from CTAN archives
+% in the directory macros/latex/base/lppl.txt; either version 1 of
+% the License, or (at your option) any later version.
+%
+%
+%<*driver>
+% \fi
+\ProvidesFile{todo.dtx}[2002/07/25 v1.1 To-do list]
+% \iffalse
+\documentclass{ltxdoc}
+\GetFileInfo{todo.dtx}
+\title{\texttt{todo} package for appending a \emph{to-do} list to a document}
+\date{\filedate{}}
+ \author{Federico Garcia\\\texttt{feg8@pitt.edu}}
+
+\begin{document}
+\maketitle
+ \DocInput{\filename}
+\end{document}
+%</driver>
+% \fi
+% \begin{abstract}
+% |todo| package provides commands for the typesetting of a \emph{to-do} list in any 
+% document, with a customizable format and fully implemented cross referencing. This is 
+% version \fileversion{}, released on \filedate{}.
+% 
+% \end{abstract}
+% 
+% \section{Usage}
+% 
+% \subsection{Basic user macros}\label{basic}
+% 
+% This section describes what happens by default, when using |todo| without options and with % default values for the user variables. Subsection~\ref{cust} describes how this can be 
+% changed.
+% 
+% \DescribeMacro{\todo}At any place in the document, the user can issue a |\todo| command, 
+% that inserts a \emph{to-do}~mark into the text, and appends a \emph{to-do}~text to the 
+% \emph{to-do}~list. The syntax of |\todo| is
+% 
+% |\todo[|\meta{mark}|]{|\meta{text}|}|
+% 
+% The mark is inserted as a superscript in boldface. If no \meta{mark} is given, the 
+% default, `To~do,' is inserted. After the mark, in the superscript, the number of the 
+% \emph{to-do} is put within parenthesis: this is an example.\textsuperscript{\textbf{To~do} % (3)} As another example, with the optional argument specified, |\todo[FIX]{Fix this}| 
+% renders~\textsuperscript{\textbf{FIX} (4)}.
+% 
+% \DescribeMacro{\todos}The |\todos| command effectively typesets the list that includes the % \meta{text}'s of any previous |\todo| command. The list is typeset in |\large| size, in a 
+% new page, under the heading `To~do\dots,' and with an empty box behind each entry 
+% (intended for checkmarks). Each entry, moreover, bears the number of the \emph{to-do} and 
+% a reference to the page in which it was issued. It looks like
+% 
+% {\large\begin{list}{\fbox{\vphantom{Ap}\hphantom{A}}\quad3.}
+% \item (p.~5) This is yet to be done.
+% \end{list}}
+% 
+% \medskip
+% If \meta{mark} was specified in a |\todo| command, this mark appears in the particular 
+% entry in the \emph{to-do} list, like in
+% 
+% {\large\begin{list}{\fbox{\vphantom{Ap}\hphantom{A}}\quad4.}
+% \item \textbf{FIX} (p.~5) This is an example, nothing  to be actually fixed.
+% \end{list}}
+% 
+% \medskip
+% The |\todos| command also turns off the |\todo| command, so that any |\todo| after 
+% |\todos| will be ignored (and a warning issued). This is natural (we can assume the 
+% \emph{to-do}~list comes at the end of the document) and prevents the need of an auxiliary 
+% file.\footnote{This could be changed, if desirable. Please write me if you think it is.} 
+% 
+% \subsection{Cross referencing}
+% 
+% The |\todo| command creates internal labels and references, so that each entry in the list
+% has a correct reference
+% to the page in which the \emph{to-do} was executed. Moreover, when
+% using |hyperref| package, each mark in the text 
+% will link to the entry in the \emph{to-do} % list, and viceversa.
+% 
+% \DescribeMacro{\label}The user can add his own |\label| to any |\todo|. The matching 
+% |\ref| will make reference to the number of the \emph{to-do}. However, |\pageref| will 
+% lead to the page in which the |\todo| occurred, unless the |\label| has been put 
+% \emph{inside} the \meta{text} (and then the pageref points to the actual text of the |\todo|, 
+% as is probably more desirable). Another reason to put it there is that a |hyperref| link 
+% will point to the actual text of the \emph{to-do} (not to the mark).
+% 
+% \subsection{Customization}\label{cust}
+% 
+% \subsubsection{Package Options}
+%
+% \DescribeEnv{marginpar}\DescribeEnv{superscript}\DescribeEnv{nothing}The option 
+% |marginpar| makes the mark to appear not as a superscript, but as a margin par, like in 
+% the next paragraph. The option |superscript|, selected by default, makes it appear as a 
+% superscript, as explained in subsection~\ref{basic}. A third option is |nothing|, which 
+% prevents |\todo| from insert anything in the text, while still appending entries to the 
+% list.
+%
+% This\marginpar{\hfill To~do (2)} is the paragraph that exemplifies |marginpar| option. 
+% (The presence of options names in the margin of the previous one made it a bad example.) 
+%
+% Another pair of options is \DescribeEnv{hide}\DescribeEnv{show}|hide| and |show|\@. Using 
+% |hide| makes |\todo| and |\todos| to be ignored (they will only produce a warning), which 
+% is useful for printing semi-final copies. Of course, |show| is selected by default.
+% 
+% \subsection{User variables}
+%
+%  \DescribeMacro{\todomark}\DescribeMacro{\todoname} The user can change the default text 
+% of the marks, |\renewcommand|ing |\todomark|, and the heading of the list with 
+% |\todoname|. Remember that marks for particular entries can be specified by the optional 
+% argument of |\todo| (subsection~\ref{basic}). Changing the value of |\todomark| is useful 
+% if \emph{most} entries are different than `To~do.' In any case, when as superscript, the 
+% mark appears always boldface, and before the \emph{to-do}~number. Further customization 
+% seems not to be necessary, because of the draft-like nature of any document with 
+% \emph{to-do}'s.
+%
+% The initial values are |{To~do}| for |\todomark| and |{To do\dots}| for |\todoname|.
+%
+% \section{Implementation}
+%
+% \subsection{Identification}
+%    \begin{macrocode}
+%<*package>
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{todo}[2002/07/25 v1.1 To-do list (Federico Garcia)]
+%    \end{macrocode}
+%
+% \subsection{Options}
+%
+% The options modify |\@todohide| and |\@todomark|. 
+% \DescribeMacro{\@todohide}\DescribeMacro{\@todomark} The former is called by |\todo| and 
+% |\todos|, and the latter is called by |\todo| to typeset the mark. This commands are 
+% defined depending on which options are used.
+%    \begin{macrocode}
+\newcommand\@todomark{}
+\newcommand\@todohide{}
+\DeclareOption{hide}{\renewcommand\@todohide[1]{%
+    \PackageWarning{todo}{`hide' option used, %
+        ignoring \noexpand\todo's}}}
+\DeclareOption{show}{\renewcommand\@todohide[1]{#1}}
+\DeclareOption{superscript}{\renewcommand\@todomark{%
+    \@todosupermark}}
+\DeclareOption{marginpar}{\renewcommand\@todomark{%
+    \@todomarginpar}}
+\DeclareOption{nothing}{\let\@todomark\@gobble}
+\DeclareOption*{\typeout{Unknown option (`\CurrentOption')}}
+\ExecuteOptions{superscript,show}
+\ProcessOptions
+%    \end{macrocode}
+%
+% \subsection{Variables} 
+%
+% \DescribeMacro{\@todotoks}|\@todotoks| is the token register that will store the entries 
+% of the list. 
+%    \begin{macrocode}
+\newtoks\@todotoks\@todotoks{}
+\newcounter{todo}\setcounter{todo}{0}
+\newcommand{\todomark}{To~do}
+\newcommand{\todoname}{To do\dots}
+%    \end{macrocode}
+%
+% \subsection{The macros}
+%
+% |\todo| has two main tasks: \DescribeMacro{\todo} produce the mark, and append the text to % |\@todotoks|. For the former, it calls |\@todomark|, which is defined according to the 
+% options. The latter is done just here. In addition, |\todo| puts the label to the page in 
+% which the mark appears, to be used in the typesetting of the list. Everything is framed by % \LaTeXe\ macros |\@bsphack| and |\@esphack|, to maintain the current space factors and the % like, and launched or not by |\@todohide|.
+%    \begin{macrocode}
+\newcommand{\todo}[2][\todomark]{\@bsphack\@todohide{%
+    \refstepcounter{todo}\label{todopage:\thetodo}%
+        \@todomark{#1}%
+        \@todotoks\expandafter{\the\@todotoks\relax%
+            \todoitem{#1}{#2}}%
+    }\@esphack}
+%    \end{macrocode}
+%
+% |\@todomark|
+% \DescribeMacro{\@todosupermark}\DescribeMacro{\@todomarginpar} 
+% has been defined (by the options) either as |\@todosupermark| or |\@todomarginpar| (or 
+% |\@gobble| for the |nothing| option). Both macros, in addition to put the corresponding mark, make |\ref| 
+% to the actual text of the \emph{to-do}, whose |\label| is to be put later on by 
+% |\todoitem|. Note that this is necessary only for supporting |hyperref| links; otherwise, 
+% |\ref{todolbl:\thetodo}| could have simply been |\thetodo|. |\@todosupermark| shares much 
+% code with \LaTeXe~|\footnote|.
+%    \begin{macrocode}
+\newcommand{\@todosupermark}[1]{%
+  \leavevmode
+  \ifhmode\edef\@x@sf{\the\spacefactor}\nobreak\fi
+  \textsuperscript{\textbf{#1} (\ref{todolbl:\thetodo})}
+  \ifhmode\spacefactor\@x@sf\fi
+  \relax}
+\newcommand{\@todomarginpar}[1]{\marginpar{#1 (\ref{todolbl:\thetodo})}} 
+%    \end{macrocode}
+%
+% \DescribeMacro{\todoitem} The construction of the list proper is made by successive 
+% |\todoitem|'s appended to |\@todotoks|. The list is a |list| environment (called by 
+% |\todos|); each item has the \emph{to-do}~number, the |\ref| to the page in which it 
+% occurred, and the \meta{mark} (boldfaced) if it is different than |\todomark|. After all 
+% that, of course, it has the \emph{to-do}~text itself. Since |\todoitem| will be called 
+% within a token register in |document| time, it has no |@| in its name, although I'm not 
+% quite sure it could not have. In any case, it is not intended for the user.
+%    \begin{macrocode}
+\newcommand{\todoitem}[2]{%
+    \item \label{todolbl:\thetodo} %
+    \ifx#1\todomark%
+        \else\textbf{#1 }%
+    \fi%
+    (p.~\pageref{todopage:\thetodo})\ #2}
+%    \end{macrocode}
+%
+% Finally, \DescribeMacro{\todos}|\todos| does the following: open a new page, put a 
+% heading, |\begin| a list whose label is an empty box (for checkmarks), call |\@todotoks|, 
+% and |\end| the list. After all that, it redefines |\todo| to issue a warning, since its 
+% text will not be included in the list. Again, all happens only if allowed by |\@todohide|.
+%    \begin{macrocode}
+\newcommand{\todos}{\@todohide{%
+        \clearpage\section*{\todoname}\large%
+        \begin{list}{\fbox{\vphantom{Ap}\hphantom{A}}%
+                \quad\arabic{todo}.}{}%
+            \usecounter{todo}
+            \the\@todotoks
+        \end{list}}
+        \renewcommand{\todo}[1]{%
+    \PackageWarning{todo}{\noexpand\todos already issued, %
+        ignoring \noexpand\todo}}}
+%</package>
+%    \end{macrocode}
