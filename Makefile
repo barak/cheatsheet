@@ -42,3 +42,8 @@ endef
 .PHONY: clean
 clean:
 	$(RM) $(addprefix CheatSheet,$(cleansuffix))
+
+# CheatSheet.pdf: todo.sty
+# todo.sty: todo.dtx ; rm -f todo.sty ; latex todo.ins
+# todo.dvi: todo.dtx ; latex todo.dtx
+# todo.pdf: todo.dtx ; pdflatex todo.dtx

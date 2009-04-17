@@ -94,12 +94,14 @@
 % 
 % \subsubsection{Package Options}
 %
-% \DescribeEnv{marginpar}\DescribeEnv{superscript}\DescribeEnv{nothing}The option 
+% \DescribeEnv{marginpar}\DescribeEnv{superscript}\DescribeEnv{nothing}\DescribeEnv{typeout}
+% The option
 % |marginpar| makes the mark to appear not as a superscript, but as a margin par, like in 
 % the next paragraph. The option |superscript|, selected by default, makes it appear as a 
 % superscript, as explained in subsection~\ref{basic}. A third option is |nothing|, which 
 % prevents |\todo| from insert anything in the text, while still appending entries to the 
-% list.
+% list.  The |typeout| option causes the text of entries to be printed
+% to the output as \LaTeX\ is run.
 %
 % This\marginpar{\hfill To~do (2)} is the paragraph that exemplifies |marginpar| option. 
 % (The presence of options names in the margin of the previous one made it a bad example.) 
@@ -139,14 +141,17 @@
 %    \begin{macrocode}
 \newcommand\@todomark{}
 \newcommand\@todohide{}
+%% \newcommand\@todoout[1]{}
 \DeclareOption{hide}{\renewcommand\@todohide[1]{%
     \PackageWarning{todo}{`hide' option used, %
-        ignoring \noexpand\todo's}}}
+        ignoring \noexpand\todo}}}
 \DeclareOption{show}{\renewcommand\@todohide[1]{#1}}
 \DeclareOption{superscript}{\renewcommand\@todomark{%
     \@todosupermark}}
 \DeclareOption{marginpar}{\renewcommand\@todomark{%
     \@todomarginpar}}
+\DeclareOption{typeout}{\renewcommand\@todoout[1]{%
+    \typeout{TODO: #1}}}
 \DeclareOption{nothing}{\let\@todomark\@gobble}
 \DeclareOption*{\typeout{Unknown option (`\CurrentOption')}}
 \ExecuteOptions{superscript,show}
@@ -175,7 +180,7 @@
         \@todomark{#1}%
         \@todotoks\expandafter{\the\@todotoks\relax%
             \todoitem{#1}{#2}}%
-    }\@esphack}
+    }\@esphack}               %\@todoout{#1, #2}
 %    \end{macrocode}
 %
 % |\@todomark|

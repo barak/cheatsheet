@@ -12,14 +12,17 @@
 \ProvidesPackage{todo}[2002/07/25 v1.1 To-do list (Federico Garcia)]
 \newcommand\@todomark{}
 \newcommand\@todohide{}
+%% \newcommand\@todoout[1]{}
 \DeclareOption{hide}{\renewcommand\@todohide[1]{%
     \PackageWarning{todo}{`hide' option used, %
-        ignoring \noexpand\todo's}}}
+        ignoring \noexpand\todo}}}
 \DeclareOption{show}{\renewcommand\@todohide[1]{#1}}
 \DeclareOption{superscript}{\renewcommand\@todomark{%
     \@todosupermark}}
 \DeclareOption{marginpar}{\renewcommand\@todomark{%
     \@todomarginpar}}
+\DeclareOption{typeout}{\renewcommand\@todoout[1]{%
+    \typeout{TODO: #1}}}
 \DeclareOption{nothing}{\let\@todomark\@gobble}
 \DeclareOption*{\typeout{Unknown option (`\CurrentOption')}}
 \ExecuteOptions{superscript,show}
@@ -33,7 +36,7 @@
         \@todomark{#1}%
         \@todotoks\expandafter{\the\@todotoks\relax%
             \todoitem{#1}{#2}}%
-    }\@esphack}
+    }\@esphack}               %\@todoout{#1, #2}
 \newcommand{\@todosupermark}[1]{%
   \leavevmode
   \ifhmode\edef\@x@sf{\the\spacefactor}\nobreak\fi

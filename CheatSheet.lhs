@@ -11,7 +11,7 @@
 \usepackage{verbatim}
 \usepackage{fancyhdr}
 \usepackage{paralist}
-\usepackage[hide]{todo}
+\usepackage{todo}
 
 \usepackage{hyperref}
 \usepackage[all]{hypcap} % Must be after hyperref
